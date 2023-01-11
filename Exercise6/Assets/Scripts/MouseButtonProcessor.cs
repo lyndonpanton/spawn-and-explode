@@ -25,7 +25,7 @@ public class MouseButtonProcessor : MonoBehaviour
 	void Update()
 	{
         // spawn teddy bear as appropriate
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetAxis("SpawnTeddyBear") > 0)
         {
             if (!isLeftMouseButtonDown)
             {
