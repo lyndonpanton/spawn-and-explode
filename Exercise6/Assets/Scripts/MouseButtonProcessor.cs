@@ -18,6 +18,7 @@ public class MouseButtonProcessor : MonoBehaviour
 
     // only trigger action on initial mouse button down trigger
     bool isLeftMouseButtonDown = false;
+    bool isRightMouseButtonDown = false;
 
 	/// <summary>
 	/// Update is called once per frame
@@ -29,7 +30,7 @@ public class MouseButtonProcessor : MonoBehaviour
         {
             if (!isLeftMouseButtonDown)
             {
-                isLeftMouseButtonDown= true;
+                isLeftMouseButtonDown = true;
 
                 GameObject teddyBear;
 
@@ -52,6 +53,33 @@ public class MouseButtonProcessor : MonoBehaviour
         }
 
         // explode teddy bear as appropriate
+        if (Input.GetAxis("ExplodeTeddyBear") > 0)
+        {
+            if (!isRightMouseButtonDown)
+            {
+                isRightMouseButtonDown = true;
+
+                GameObject[] allTeddyBears = GameObject.FindGameObjectsWithTag("TeddyBear");
+
+                if (allTeddyBears.Length > 0)
+                {
+                    int randomTeddyBearIndex = Random.Range(0, allTeddyBears.Length);
+
+                    GameObject randomTeddyBear = allTeddyBears[randomTeddyBearIndex];
+                    GameObject explosion = Instantiate<GameObject>(
+                        prefabExplosion,
+                        randomTeddyBear.transform.position,
+                        Quaternion.identity
+                    );
+
+                    Destroy(randomTeddyBear);
+                }
+
+            }
+        } else
+        {
+            isRightMouseButtonDown = false;
+        }
 		
 	}
 }
